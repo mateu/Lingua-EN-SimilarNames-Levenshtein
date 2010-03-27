@@ -1,0 +1,14 @@
+Install Lingua::EN::SimilarNames::Levenshtein either using the cpan shell like this:
+
+        cpan Lingua::EN::SimilarNames::Levenshtein
+
+    OR by downloading and extracting the tarball from:
+
+        http://search.cpan.org/dist/Lingua-EN-Similar-Names-Levenshtein
+
+    cd to the extracted directory Lingua-EN-SimilarNames-Levenshtein-x.xx/ then run:
+
+	    * perl Makefile.PL
+	    * make test
+	    * make install
+

@@ -1,0 +1,14 @@
+Compare people names looking for similaritiesl
+
+0.02    2010 Mars 27
+		
+		Improvements:
+		* Added accessor to list of pairs of people with similar names.
+		  list_of_people_with_similar_names()
+		* renamed list_of_similar_names method to list_of_similar_name_pairs
+		  to better clarify that the listed returned is pairs of names.
+	    * POD to describe the classes and new accessor.
+		  
+0.01    2010 Mars 4
+
+        Initial CPAN release
