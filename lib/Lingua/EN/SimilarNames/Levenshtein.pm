@@ -7,7 +7,7 @@ use strict;
 use warnings;
 use 5.010;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 Name
  
@@ -15,30 +15,39 @@ Lingua::EN::SimilarNames::Levenshtein - Compare people first and last names.
 
 =head1 Synopsis
 
-    my $first_person = Person->new(
-        first_name => 'John',
-        last_name  => 'Wayne',
+    my $people = [ 
+        [ 'John',     'Wayne' ], 
+        [ 'Sundance', 'Kid' ], 
+        [ 'Jose',     'Wales' ], 
+        [ 'John',     'Wall' ], 
+    ];
+    
+    my @people_objects = map { 
+        Person->new(
+            first_name => $_->[0], 
+            last_name  => $_->[1],
+        )
+    } @{$people};
+    
+    # Build list of name pairs within 5 character edits of each other
+    my $similar_people = SimilarNames->new(
+        list_of_people   => \@people_objects, 
+        maximum_distance => 5
     );
-    my $second_person = Person->new(
-        first_name => 'Sundance',
-        last_name  => 'Kid',
-    );
-    my $third_person = Person->new(
-        first_name => 'Jose',
-        last_name  => 'Wales',
-    );
-    my $fourth_person = Person->new(
-        first_name => 'John',
-        last_name  => 'Wall',
-    );
-    my @list_of_people = ($first_person, $second_person, $third_person, $fourth_person);
-    my $people = SimilarNames->new(list_of_people => \@list_of_people, maximum_distance => 5);
-    my $people_with_similar_names  = $people->list_of_people_with_similar_names;
- 
+    
+    # Get the people name pairs as an ArrayRef[ArrayRef[ArrayRef[Str]]]
+    print Dumper $similar_people->list_of_similar_name_pairs;
+    # which results in:
+    [
+        [ [ "Jose", "Wales" ], [ "John", "Wall" ] ],
+        [ [ "Jose", "Wales" ], [ "John", "Wayne" ] ],
+        [ [ "John", "Wall" ],  [ "John", "Wayne" ] ]
+    ]
+   
 =head1 Description
  
 Given a list of people objects, find the people whose names are within a 
-specified edit distance.  The result is an ArrayRef[ArrayRef[Str]].
+specified edit distance. 
  
 =cut
 
@@ -168,7 +177,7 @@ This is called on a SimilarNames object to return a list of similar
 name pairs for the list of Person objects passed in.  It uses the Levenshtein 
 edit distance.  This means the names are close to one another in spelling.
 
-=head2 list_of_people_with_similar_name
+=head2 list_of_people_with_similar_names
 
 This accessor is similar to the C<list_of_similar_name_pairs> but returns a 
 list of Person object pairs instead of the names.
@@ -187,7 +196,7 @@ You may distribute this code under the same terms as Perl itself.
 
 =head1 Code Repository
 
-
+http://github.com/mateu/Lingua-EN-SimilarNames-Levenshtein
 
 =cut
 
