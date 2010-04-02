@@ -1,5 +1,15 @@
 Compare people names looking for similarities in spelling.
 
+0.05    2010 April 2
+        Bug Fix:
+        * list_of_similar_name_pairs test now has a fixed order to the 
+          array reference of similar names.
+        
+0.04    2010 Mars 28
+        Bug Fix:
+        * Remove Data::Dumper::Concise from basic.t as
+        it's not considered a dependency.
+
 0.03    2010 Mars 28
         Improvements:
         * Refine Synopsis

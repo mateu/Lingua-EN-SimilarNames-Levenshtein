@@ -1,7 +1,9 @@
 use Lingua::EN::SimilarNames::Levenshtein;
+use Set::Scalar;
 use strict;
 use warnings;
 use Test::More;
+use Data::Dumper;
 
 my $rocker = Person->new(
     first_name => 'John',
@@ -34,13 +36,21 @@ my @people_objects = map { Person->new(first_name => $_->[0], last_name => $_->[
 my $similar_people = SimilarNames->new(list_of_people => \@people_objects, maximum_distance => 5);
 isa_ok($similar_people, 'SimilarNames');
 can_ok('SimilarNames', qw/ list_of_similar_name_pairs list_of_people_with_similar_names /);
-my $expected_list = [
+my $expected_list = 
+[
     [ [ "Jose", "Wales" ], [ "John", "Wall" ] ],
     [ [ "Jose", "Wales" ], [ "John", "Wayne" ] ],
     [ [ "John", "Wall" ],  [ "John", "Wayne" ] ]
 ];
-is_deeply($similar_people->list_of_similar_name_pairs,
-    $expected_list, 'Similar Pairs of People Names (first, last)');
+my $derived_list = $similar_people->list_of_similar_name_pairs;
+
+my @people_sorted;
+foreach my $person_pair (@{$derived_list}) {
+    my @person_pair = sort { ($a->[1] cmp $b->[1]) || ($a->[0] cmp $b->[0]) } @{$person_pair};
+    push @people_sorted, \@person_pair;
+}
+@people_sorted = sort { ($a->[0][1] cmp $b->[0][1]) || ($a->[0][0] cmp $b->[0][0]) } @people_sorted;
+is_deeply($expected_list, \@people_sorted, 'People with Similar Names');
 
 done_testing();
 
