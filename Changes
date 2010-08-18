@@ -1,5 +1,10 @@
 Compare people names looking for similarities in spelling.
 
+0.06    2010 April 2
+        Bug Fix:
+        * remove 'use Set::Scalar' from test basic.t 
+          since it was no longer used.
+          
 0.05    2010 April 2
         Bug Fix:
         * list_of_similar_name_pairs test now has a fixed order to the 

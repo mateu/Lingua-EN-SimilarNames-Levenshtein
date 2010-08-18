@@ -1,5 +1,4 @@
 use Lingua::EN::SimilarNames::Levenshtein;
-use Set::Scalar;
 use strict;
 use warnings;
 use Test::More;
