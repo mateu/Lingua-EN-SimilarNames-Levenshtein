@@ -1,5 +1,11 @@
 Compare people names looking for similarities in spelling.
 
+0.07    2011 July 25
+        Test Fix:
+        * The last test in basic.t is giving erroneous results at times
+          This happens with CPAN Testers (but I can't reproduce it).
+          I'm trying Test::Leaner to see if the issue remains or goes away.
+
 0.06    2010 April 2
         Bug Fix:
         * remove 'use Set::Scalar' from test basic.t 
