@@ -77,7 +77,7 @@ class Person {
       }
 }
 
-=head2 ComparTwoNames
+=head2 CompareTwoNames
 
 This class defines comparator objects.  Given two Person objects, 
 it computes the edit distance between their names.
